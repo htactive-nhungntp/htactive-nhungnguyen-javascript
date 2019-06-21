@@ -5,6 +5,7 @@ class ToDoClass {
         this.loadTasks();
         this.percentProgress();
         this.addEventListener();
+        // this.updateEventListener();
         this.perform;
         this.tam;
     }
@@ -18,8 +19,18 @@ class ToDoClass {
         });
     }
 
-    completeTodo(index) {
-        //   alert(index);
+    // updateEventListener() {
+    //     document.getElementById(index).updateEventListener('keypress', event => {
+    //         if (event.keyCode === 13) {
+    //             this.addTask(event.target.value);
+    //             event.target.value = "";
+    //         }
+    //     });
+    // }
+
+    completeTodo(id) {
+        let index = this.tasks.findIndex(t => t.id == id)
+        console.log(index)
         this.tasks[index].isComplete = !this.tasks[index].isComplete;
         this.loadTasks()
     }
@@ -28,15 +39,18 @@ class ToDoClass {
 
     addTask(task) {
         let newTask = {
+            id: toDo.randomId(10),
             task: task,
             isComplete: false
         };
-        let parentDiv = document.getElementById('addTask').parentElement;
+
+        // let parentDiv = document.getElementById('addTask').parentElement;
         if (task === '') {
             alert('Lỗi nhé !!!')
         } else {
             this.tasks.push(newTask);
             this.loadTasks()
+            console.log(newTask)
         }
     }
 
@@ -47,10 +61,11 @@ class ToDoClass {
     // }
 
     deleteTodo(event, id) {
+        let index = this.tasks.findIndex(t => t.id = id)
         event.preventDefault();
         this.perform = {
-            task: this.tasks[id].task,
-            isComplete: this.tasks[id].isComplete
+            task: this.tasks[index].task,
+            isComplete: this.tasks[index].isComplete
         };
         this.tam = this.tasks.splice(id, 1);
         this.loadTasks();
@@ -62,6 +77,7 @@ class ToDoClass {
 
         btn.setAttribute("onclick", "toDo.unDo()");
         btn.setAttribute("style", " margin-left: 50%");
+        btn.setAttribute("id", "btnUndo")
         setTimeout(function() {
             btn.remove();
         }, 3000);
@@ -71,15 +87,20 @@ class ToDoClass {
         this.tasks.push(this.perform);
         console.log(this.tasks);
         this.loadTasks();
+        var btn = document.getElementById("btnUndo");
+        btn.remove()
     }
-    updateToDo(event, index) {
+
+    updateToDo(event, id) {
+        let index = this.tasks.findIndex(t => t.id == id)
+        console.log(index)
         event.preventDefault();
-        let displaybtn = document.getElementById(index);
+        let displaybtn = document.getElementById(id);
         this.tasks[index].isComplete = false;
         displaybtn.disabled = false;
         displaybtn.focus();
-
     }
+
     selectActive() {
         let filter = this.tasks.filter(item => item.isComplete === false)
         if (filter.length > 0) {
@@ -110,9 +131,10 @@ class ToDoClass {
         }
     }
 
-    saveEdit(event, index) {
+    saveEdit(event, id) {
+        let index = this.tasks.findIndex(t => t.id == id)
         event.preventDefault();
-        let valueEdit = document.getElementById(index).value;
+        let valueEdit = document.getElementById(id).value;
         this.tasks[index].task = valueEdit;
         this.tasks[index].isComplete = false;
         this.loadTasks();
@@ -128,25 +150,46 @@ class ToDoClass {
         let lengthActive = filter.length;
         let percent = (lengthActive / length) * 100;
         console.log(percent)
-        document.getElementById("progress").style.width = percent + "%";
+        let style = document.getElementById("progress");
+
+        if (percent < 30) {
+            style.className = "progress-bar bg-danger"
+            document.getElementById("progress").style.width = percent + "%";
+        } else if (percent > 30 && percent < 70) {
+            style.className = "progress-bar bg-warning"
+            document.getElementById("progress").style.width = percent + "%";
+        } else {
+            style.className = "progress-bar bg-success"
+            document.getElementById("progress").style.width = percent + "%";
+        }
     }
+
+    randomId(length) {
+        var result = '';
+        var characters = 'cscbscjscsnpowrucnxpioewursmndzsckjsqrewrsjfdabcdefghijklmnopqrstuvwxyz';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
     generateTaskHtml(task, index) {
         return `
             <li class="list-group-item checkbox">
             <div class="row">
                 <div class="col-md-1 col-xs-1 col-lg-1 col-sm-1 checkbox">
-                <label><input id="toggleTaskStatus" type="checkbox" onchange="toDo.completeTodo(${index})" value="" class="" ${task.isComplete ? 'checked' : ''}></label>
+                <label><input id="toggleTaskStatus" type="checkbox" onchange="toDo.completeTodo('${task.id}')" value="" class="" ${task.isComplete ? 'checked' : ''}></label>
                 </div>
                 <div class="col-md-10 col-xs-10 col-lg-10 col-sm-10 task-text  ${task.isComplete ? 'complete' : ''}">
-                <input type="text" class="form-control" id="${index}"disabled style="border:none;" value="${task.task}">
-                
+                <input type="text" class="form-control" id=${task.id} disabled style="border:none;" value="${task.task}">
                 </div>
                 <div class="col-md-1 col-xs-1 col-lg-1 col-sm-1 delete-icon-area">
                 <div class="icon">
                 <div class="row">
-                <a class="icon" href=""  onClick="toDo.updateToDo(event, ${index})" ><i id="pen"class="fa fa-pencil" ></i></i></a>&nbsp&nbsp
-                <a class="icon" href=""  onClick="toDo.deleteTodo(event, ${index})"><i class="fa fa-trash" style="color:red"></i></i></a>&nbsp&nbsp
-                <a class="icon" href=""  onClick="toDo.saveEdit(event, ${index})"><i class="fa fa-check" style="color:green" ></i></i></a>
+                <a class="icon" href=""  onClick="toDo.updateToDo(event, '${task.id}')" ><i id="pen"class="fa fa-pencil" ></i></i></a>&nbsp&nbsp
+                <a class="icon" href=""  onClick="toDo.deleteTodo(event, '${task.id}')"><i class="fa fa-trash" style="color:red"></i></i></a>&nbsp&nbsp
+                <a class="icon" href=""  onClick="toDo.saveEdit(event, '${task.id}')"><i class="fa fa-check" style="color:green" ></i></i></a>
                 </div>
                 </div>
                 </div>
