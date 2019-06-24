@@ -60,44 +60,39 @@ class ToDoClass {
     //     this.loadTasks()
     // }
 
-    deleteTodo(event, id) {
-        let index = this.tasks.findIndex(t => t.id = id)
+    deleteTodo = (event, id) => {
+        //var btn = document.createElement("button");
         event.preventDefault();
-        this.perform = {
-            task: this.tasks[index].task,
-            isComplete: this.tasks[index].isComplete
-        };
-        this.tam = this.tasks.splice(id, 1);
-        this.loadTasks();
-        console.log(this.tam);
-
-        var btn = document.createElement("button");
-        btn.innerHTML = "undo";
-        document.body.appendChild(btn);
-        btn.className = "btn btn-danger"
-        btn.setAttribute("onclick", "toDo.unDo()");
-        btn.setAttribute("style", " margin-left: 50%");
-        btn.setAttribute("id", "btnUndo")
-        setTimeout(function() {
-            btn.remove();
-        }, 3000);
-    }
-
-    unDo() {
-        this.tasks.push(this.perform);
-        console.log(this.tasks);
+        let index = this.tasks.findIndex(t => t.id == id)
+        this.tam = this.tasks.splice(index, 1);
         this.loadTasks();
         var btn = document.getElementById("btnUndo");
-        btn.remove()
+        // btn.innerHTML = "undo";
+        // document.body.appendChild(btn);
+        // btn.setAttribute("onclick", "toDo.unDo()");
+        // btn.setAttribute("style", " margin-left: 50%");
+        // btn.className = "btn btn-danger"
+        btn.removeAttribute("hidden");
+        setTimeout(function() {
+            btn.setAttribute("hidden", false);
+        }, 3000);
+
+
     }
 
+    unDo = () => {
+        this.tasks.push(this.tam[0]);
+        var btn = document.getElementById("btnUndo");
+        btn.removeAttribute("hidden");
+        this.loadTasks();
+    }
     updateToDo(event, id) {
         event.preventDefault();
         let index = this.tasks.findIndex(t => t.id == id)
         console.log(index)
         var check = document.getElementById('save-' + id);
         var pen = document.getElementById('update-' + id);
-        pen.style.display = "none";
+        pen.setAttribute("hidden", false);
         check.removeAttribute("hidden");
         let displaybtn = document.getElementById(id);
         this.tasks[index].isComplete = false;
