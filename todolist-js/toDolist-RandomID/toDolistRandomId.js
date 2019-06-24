@@ -61,20 +61,20 @@ class ToDoClass {
     // }
 
     deleteTodo = (event, id) => {
-        var btn = document.createElement("button");
+        //var btn = document.createElement("button");
         event.preventDefault();
         let index = this.tasks.findIndex(t => t.id == id)
         this.tam = this.tasks.splice(index, 1);
         this.loadTasks();
-        var btn = document.createElement("button");
-        btn.innerHTML = "undo";
-        document.body.appendChild(btn);
-        btn.setAttribute("onclick", "toDo.unDo()");
-        btn.setAttribute("style", " margin-left: 50%");
-        btn.className = "btn btn-danger"
-        btn.setAttribute("id", "btnUndo")
+        var btn = document.getElementById("btnUndo");
+        // btn.innerHTML = "undo";
+        // document.body.appendChild(btn);
+        // btn.setAttribute("onclick", "toDo.unDo()");
+        // btn.setAttribute("style", " margin-left: 50%");
+        // btn.className = "btn btn-danger"
+        btn.removeAttribute("hidden");
         setTimeout(function() {
-            btn.remove();
+            btn.setAttribute("hidden", false);
         }, 3000);
 
 
@@ -83,7 +83,7 @@ class ToDoClass {
     unDo = () => {
         this.tasks.push(this.tam[0]);
         var btn = document.getElementById("btnUndo");
-        btn.remove();
+        btn.removeAttribute("hidden");
         this.loadTasks();
     }
     updateToDo(event, id) {
