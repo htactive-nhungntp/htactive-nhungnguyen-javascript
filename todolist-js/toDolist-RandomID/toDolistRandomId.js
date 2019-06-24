@@ -74,7 +74,7 @@ class ToDoClass {
         var btn = document.createElement("button");
         btn.innerHTML = "undo";
         document.body.appendChild(btn);
-
+        btn.className = "btn btn-danger"
         btn.setAttribute("onclick", "toDo.unDo()");
         btn.setAttribute("style", " margin-left: 50%");
         btn.setAttribute("id", "btnUndo")
@@ -92,13 +92,20 @@ class ToDoClass {
     }
 
     updateToDo(event, id) {
+        event.preventDefault();
         let index = this.tasks.findIndex(t => t.id == id)
         console.log(index)
-        event.preventDefault();
+        var check = document.getElementById('save-' + id);
+        var pen = document.getElementById('update-' + id);
+        pen.style.display = "none";
+        check.removeAttribute("hidden");
         let displaybtn = document.getElementById(id);
         this.tasks[index].isComplete = false;
         displaybtn.disabled = false;
         displaybtn.focus();
+
+
+
     }
 
     selectActive() {
@@ -187,9 +194,10 @@ class ToDoClass {
                 <div class="col-md-1 col-xs-1 col-lg-1 col-sm-1 delete-icon-area">
                 <div class="icon">
                 <div class="row">
-                <a class="icon" href=""  onClick="toDo.updateToDo(event, '${task.id}')" ><i id="pen"class="fa fa-pencil" ></i></i></a>&nbsp&nbsp
-                <a class="icon" href=""  onClick="toDo.deleteTodo(event, '${task.id}')"><i class="fa fa-trash" style="color:red"></i></i></a>&nbsp&nbsp
-                <a class="icon" href=""  onClick="toDo.saveEdit(event, '${task.id}')"><i class="fa fa-check" style="color:green" ></i></i></a>
+                <a class="icon" href=""  onClick="toDo.updateToDo(event, '${task.id}')" ><i class="fa fa-pencil" id='update-${task.id}'></i></a>&nbsp&nbsp
+                <a class="icon" href=""  onClick="toDo.saveEdit(event, '${task.id}')"><i class="fa fa-check" style="color:green" id='save-${task.id}' hidden></i></i></a>&nbsp&nbsp
+                <a class="icon" href=""  onClick="toDo.deleteTodo(event, '${task.id}')"><i class="fa fa-trash" style="color:red"></i></i></a>
+               
                 </div>
                 </div>
                 </div>
