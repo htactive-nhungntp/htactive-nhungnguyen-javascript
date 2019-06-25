@@ -61,21 +61,16 @@ class ToDoClass {
     // }
 
     deleteTodo = (event, id) => {
-        //var btn = document.createElement("button");
         event.preventDefault();
         let index = this.tasks.findIndex(t => t.id == id)
         this.tam = this.tasks.splice(index, 1);
-        this.loadTasks();
         var btn = document.getElementById("btnUndo");
-        // btn.innerHTML = "undo";
-        // document.body.appendChild(btn);
-        // btn.setAttribute("onclick", "toDo.unDo()");
-        // btn.setAttribute("style", " margin-left: 50%");
-        // btn.className = "btn btn-danger"
-        btn.removeAttribute("hidden");
+        // btn.setAttribute("hidden", false);
+        btn.style.visibility = "visible";
+        this.loadTasks();
         setTimeout(function() {
-            btn.setAttribute("hidden", false);
-        }, 3000);
+            document.getElementById("btnUndo").style.visibility = "hidden";
+        }, 5000);
 
 
     }
@@ -83,7 +78,7 @@ class ToDoClass {
     unDo = () => {
         this.tasks.push(this.tam[0]);
         var btn = document.getElementById("btnUndo");
-        btn.removeAttribute("hidden");
+        btn.style.visibility = "hidden";
         this.loadTasks();
     }
     updateToDo(event, id) {
