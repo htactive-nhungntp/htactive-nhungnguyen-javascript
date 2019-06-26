@@ -6,8 +6,8 @@ class ToDoClass {
         this.percentProgress();
         this.addEventListener();
         // this.updateEventListener();
-        this.perform;
-        this.tam;
+        // this.perform;
+        // this.tam;
     }
 
     addEventListener() {
@@ -46,7 +46,7 @@ class ToDoClass {
 
         // let parentDiv = document.getElementById('addTask').parentElement;
         if (task === '') {
-            alert('Lỗi nhé !!!')
+            alert('Dữ liệu rỗng! Vui lòng nhập tên task của bạn')
         } else {
             this.tasks.push(newTask);
             this.loadTasks()
