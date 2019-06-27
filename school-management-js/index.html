@@ -37,19 +37,19 @@
                 <div class="btn-object">
                     <div class="row">
                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <button type="submit" onclick="" class="btn btn-danger">Students
+                            <button type="submit" class="btn btn-danger" onclick="school.displayStudentTable()">Students
                                             <i class="fa fa-user" ></i>
                                         </button>
                         </div>
 
                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <button type="submit" class="btn btn-info">Teachers
+                            <button type="submit" class="btn btn-info" onclick="school.displayTeacherTable()">Teachers
                                         <i class="fa fa-user-plus" ></i>
                                     </button>
                         </div>
 
                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <button type="submit" class="btn btn-success">Class
+                            <button type="submit" class="btn btn-success" onclick="school.displayClassTable()">Class
                                         <i class="fa fa-home" ></i>
                                     </button>
                         </div>
@@ -67,9 +67,15 @@
                     <!-- <p id="demo">zczscscsc</p> -->
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">ADD NEW STUDENT
+                    <button type="button" class="btn btn-danger" data-toggle="modal" hidden data-target="#myModal" id="btnAddSV">ADD NEW STUDENT
                                 <i class="fa fa-paint-brush" ></i>
                             </button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" hidden id="btnAddGV">ADD NEW TEACHER
+                                    <i class="fa fa-paint-brush" ></i>
+                                </button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" hidden id="btnAddLH">ADD NEW CLASS
+                                        <i class="fa fa-paint-brush" ></i>
+                                    </button>
                     <!-- The Modal -->
                     <div class="modal" id="myModal" style="margin-top: 150px;">
                         <div class="modal-dialog">
@@ -79,50 +85,47 @@
                                     <h4 class="modal-title">ADD NEW STUDENT</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
-
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    <form action=" " method="POST " role="form ">
+                                    <form action="" method="POST " role="form ">
+                                        <div class="form-group ">
+                                            <label for=" ">Mã sinh viên:</label>
+                                            <input type="text " class="form-control " id="txtMasv" value="">
+                                        </div>
                                         <div class="form-group ">
                                             <label for=" ">Tên sinh viên:</label>
-                                            <input type="text " class="form-control " id=" ">
+                                            <input type="text " class="form-control " id="txtTensv" value="">
                                         </div>
-                                        <div class="form-group ">
-                                            <label for=" ">Date of birth:</label>
-                                            <input type="date" class="form-control " id=" ">
-                                        </div>
-                                        <div class="form-group ">
-                                            <label for=" ">Phone number</label>
-                                            <input type="text " class="form-control " id=" ">
-                                        </div>
+
                                         <div class="form-group ">
                                             <label for="class ">Class:</label>
-                                            <select class="form-control " id="class ">
-                                                          <option>PNV20A</option>
-                                                          <option>PNV20B</option>
+                                            <select class="form-control " id="class">
+                                                          <option value="PNV20A">PNV20A</option>
+                                                          <option value="PNV20B">PNV20B</option>
                                                         </select>
                                         </div>
-                                        <button type="submit " class="btn btn-primary ">Submit</button>
+                                        <div class="form-group ">
+                                            <p id="error"></p>
+                                        </div>
+                                        <button type="button" class="btn btn-primary " onclick="school.addStudent()">Submit</button>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     </form>
                                 </div>
-
                                 <!-- Modal footer -->
                                 <div class="modal-footer"> </div>
 
                             </div>
                         </div>
+
                     </div>
 
+                    <p id="checkSave" style="margin-top: 50px;"></p>
 
-
-                    <table id="table" class="table table-light table-hover" style="margin-top: 50px;">
+                    <table id="student-table" class="table table-light table-hover" style="margin-top: 50px;">
                         <thead>
                             <tr>
                                 <th>Student ID</th>
                                 <th>Full name</th>
-                                <th>Date of birth</th>
-                                <th>Phone number</th>
                                 <th>Class</th>
                                 <th>Status</th>
                             </tr>
@@ -130,13 +133,11 @@
                         <tbody id="student-body">
                         </tbody>
                     </table>
-                    <table id="table" class="table table-light table-hover" hidden style="margin-top: 50px;">
+                    <table id="teacher-table" class="table table-light table-hover" hidden style="margin-top: 50px;">
                         <thead>
                             <tr>
                                 <th>Teacher ID</th>
                                 <th>Full name</th>
-                                <th>Date of birth</th>
-                                <th>Phone number</th>
                                 <th>Class</th>
                                 <th>Status</th>
                             </tr>
@@ -144,18 +145,18 @@
                         <tbody id="teacher-body">
                         </tbody>
                     </table>
-                    <table id="table" class="table table-light table-hover" hidden style="margin-top: 50px;">
+                    <table id="class-table" class="table table-light table-hover" hidden style="margin-top: 50px;">
                         <thead>
                             <tr>
-                                <th>Subject ID</th>
-                                <th>Subject name</th>
+                                <th> ID</th>
+                                <th> name</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody id="subject-body">
+                        <tbody id="class-body">
                         </tbody>
                     </table>
-                    <table id="table" class="table table-light table-hover" hidden style="margin-top: 50px;">
+                    <table id="score-table" class="table table-light table-hover" hidden style="margin-top: 50px;">
                         <thead>
                             <tr>
                                 <th>Score ID</th>
