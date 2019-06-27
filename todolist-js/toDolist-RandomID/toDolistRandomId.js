@@ -7,7 +7,7 @@ class ToDoClass {
         this.addEventListener();
         // this.updateEventListener();
         // this.perform;
-        // this.tam;
+        this.tam;
     }
 
     addEventListener() {
@@ -93,9 +93,6 @@ class ToDoClass {
         this.tasks[index].isComplete = false;
         displaybtn.disabled = false;
         displaybtn.focus();
-
-
-
     }
 
     selectActive() {
