@@ -7,8 +7,8 @@ class schoolClass {
         this.Subject = JSON.parse(localStorage.getItem('monhoc')) || [];
         this.Class = JSON.parse(localStorage.getItem('lophoc')) || [];
         this.loadStudent();
-        // this.loadTeacher();
-        // this.loadClass();
+        this.loadTeacher();
+        this.loadClass();
     }
 
     addStudent() {
@@ -91,13 +91,8 @@ class schoolClass {
         event.preventDefault();
         let index = this.Student.findIndex(t => t.id == id)
         this.tam = this.Student.splice(index, 1);
-        // var btn = document.getElementById("btnUndo");
-        // btn.setAttribute("hidden", false);
-        // btn.style.visibility = "visible";
         this.loadStudent();
-        // setTimeout(function() {
-        //     document.getElementById("btnUndo").style.visibility = "hidden";
-        // }, 5000);
+
 
 
     }
@@ -123,9 +118,6 @@ class schoolClass {
         tbl_Teacher.removeAttribute("hidden");
         btnAddSV.removeAttribute("hidden")
         this.loadStudent();
-        // let studentHtml = this.Student.reduce((html, hs, index) => html += this.showStudent(hs, index), '');
-        // document.getElementById('student-body').innerHTML = studentHtml;
-        // localStorage.setItem('hocsinh', JSON.stringify(this.Student));
 
     }
 
