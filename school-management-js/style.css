@@ -1,0 +1,15 @@
+        header {
+            height: 50px;
+            background-color: gray
+        }
+        
+        .btn-object button {
+            width: 220px;
+            height: 100px;
+            font-size: 24px;
+            font-family: cursive;
+        }
+        
+        .table-infor {
+            margin-top: 70px;
+        }

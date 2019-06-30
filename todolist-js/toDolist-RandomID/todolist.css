@@ -1,0 +1,57 @@
+body {
+    padding-top: 50px;
+}
+
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.content-area {
+    margin: 30px;
+}
+
+.input-area {
+    margin: 25px;
+}
+
+.task-text {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
+.delete-icon-area {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.delete-icon {
+    color: red;
+}
+
+.complete {
+    text-decoration: line-through;
+}
+
+button:hover {
+    background-color: rgb(11, 77, 26);
+    border: 
+}
+
+.checkbox:hover {
+    background: rgb(235, 241, 206);
+}
+
+.fa fa-trash {
+    color: red
+}
+
+ul li {
+    list-style-type: none
+}
